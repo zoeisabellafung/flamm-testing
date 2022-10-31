@@ -46,4 +46,140 @@ library(tibble)
 # file --> open next (only works if your scans are already ordered in a folder)
 ```
 
+## compiling imagej leaf area analysis data
+```{r}
+# read in individual data sets + clean
+ARTCAL1 <- read.csv("imagej data/ARTCAL_P1_R1_W_00001.csv") %>%
+  slice(13, 16, 36, 39, 47)
+ARTCAL2 <- read.csv("imagej data/ARTCAL_P2_R1_W_00003.csv") %>%
+  slice(5, 6, 12, 20, 32)
+ARTCAL3 <- read.csv("imagej data/ARTCAL_P3_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 7, 8)
+ARTCAL4 <- read.csv("imagej data/ARTCAL_P4_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 6)
+ARTCAL5 <- read.csv("imagej data/ARTCAL_P5_R1_W_00001.csv") %>%
+  slice(1, 3, 5, 6, 7)
+ARTCAL6 <- read.csv("imagej data/ARTCAL_P6_R1_W_00001.csv") %>%
+  slice(2, 3, 5, 7, 8)
+ARTCAL7 <- read.csv("imagej data/ARTCAL_P7_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 6, 10)
+ARTCAL8 <- read.csv("imagej data/ARTCAL_P8_R1_W_00001.csv") %>%
+  slice(1, 2, 3, 5, 6)
+ARTCAL9 <- read.csv("imagej data/ARTCAL_P9_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 6)
+
+CEAGRI1 <- read.csv("imagej data/CEAGRI_P1_R1_W_00001.csv") %>%
+  slice(6, 7, 13, 15, 35)
+CEAGRI2 <- read.csv("imagej data/CEAGRI_P2_R1_W_00003.csv") %>%
+  slice(1, 2, 5, 7, 8)
+CEAGRI3 <- read.csv("imagej data/CEAGRI_P3_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 7)
+CEAGRI4 <- read.csv("imagej data/CEAGRI_P4_R1_W_00001.csv") %>%
+  slice(2, 3, 5, 6, 8)
+
+ERIKAR1 <- read.csv("imagej data/ERIKAR_P1_R1_W_00001.csv") %>%
+  slice(2, 3, 5, 7, 8)
+ERIKAR2 <- read.csv("imagej data/ERIKAR_P2_R1_W_00001.csv") %>%
+  slice(2, 3, 5, 6, 7)
+ERIKAR3 <- read.csv("imagej data/ERIKAR_P3_R1_W_00001.csv") %>%
+  slice(1, 2, 5, 6, 7)
+ERIKAR4 <- read.csv("imagej data/ERIKAR_P4_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 8, 11)
+ERIKAR5 <- read.csv("imagej data/ERIKAR_P5_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 8, 9)
+ERIKAR6 <- read.csv("imagej data/ERIKAR_P6_R1_W_00001.csv") %>%
+  slice(3, 5, 7, 9, 10)
+
+HETARB1 <- read.csv("imagej data/HETARB_P1_R1_W_00001.csv") %>%
+  slice(3, 6, 18, 26, 40)
+HETARB2 <- read.csv("imagej data/HETARB_P2_R1_W_0003.csv") %>% # note: leaf 2 was connected to ruler; inaccurate measurement
+  slice(1, 2, 12, 23, 30)
+HETARB3 <- read.csv("imagej data/HETARB_P3_R1_W_00001.csv") %>%
+  slice(2, 4, 17, 23, 33)
+HETARB4 <- read.csv("imagej data/HETARB_P4_R1_W_00002.csv") %>%
+  slice(2, 5, 17, 24, 32)
+HETARB5 <- read.csv("imagej data/HETARB_P5_R1_W_00001.csv") %>%
+  slice(6, 9, 16, 30, 35)
+HETARB6 <- read.csv("imagej data/HETARB_P6_R1_W_00001.csv") %>%
+  slice(5, 11, 21, 29, 38)
+HETARB7 <- read.csv("imagej data/HETARB_P7_R1_W_00001.csv") %>%
+  slice(2, 3, 8, 18, 34)
+HETARB8 <- read.csv("imagej data/HETARB_P8_R1_W_00001.csv") %>%
+  slice(3, 6, 9, 10, 11)
+
+IRIDOU1 <- read.csv("imagej data/IRIDOU_P1_R1_W_00001.csv") %>%
+  slice(6, 7, 8, 12)
+IRIDOU1.1 <- read.csv("imagej data/IRIDOU_P1_R1_W_00001(2).csv") 
+IRIDOU3 <- read.csv("imagej data/IRIDOU_P3_R1_W_00001.csv") %>%
+  slice(3, 4, 5, 6, 10)
+
+MALLAU1 <- read.csv("imagej data/MALLAU_P1_R1_W_00001.csv") %>%
+  slice(2, 5, 8, 9, 10)
+MALLAU2 <- read.csv("imagej data/MALLAU_P2_R1_W_00002.csv") %>%
+  slice(1, 2, 6, 8, 9)
+MALLAU3 <- read.csv("imagej data/MALLAU_P3_R1_W_00002.csv") %>%
+  slice(1, 3, 4, 5, 6)
+MALLAU4 <- read.csv("imagej data/MALLAU_P4_R1_W_00001.csv") %>%
+  slice(3, 4, 9, 10, 11)
+MALLAU5 <- read.csv("imagej data/MALLAU_P5_R1_W_00001.csv") %>%
+  slice(2, 4, 5, 6, 7)
+MALLAU6 <- read.csv("imagej data/MALLAU_P6_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 7)
+MALLAU7 <- read.csv("imagej data/MALLAU_P7_R1_W_00001.csv") %>% # note: missing measurement for leaf 4 (connected to the ruler)
+  slice(2, 3, 5, 6)
+MALLAU8 <- read.csv("imagej data/MALLAU_P8_R1_W_00001.csv") %>% # note: leaf 3 connected to ruler; measurement inaccurate
+  slice(1, 2, 3, 5, 8)
+MALLAU9 <- read.csv("imagej data/MALLAU_P9_R1_W_00004.csv") %>%
+  slice(1, 2, 4, 5, 6)
+
+MANDEN1 <- read.csv("imagej data/MANDEN_P1_R1_W_00001.csv") %>%
+  slice(2, 4, 5, 6, 7)
+MANDEN2 <- read.csv("imagej data/MANDEN_P2_R1_W_00001.csv") %>%
+  slice(3, 4, 5, 6, 7)
+MANDEN3 <- read.csv("imagej data/MANDEN_P3_R1_W_00001.csv") %>%
+  slice(3, 4, 7, 8, 9)
+MANDEN4 <- read.csv("imagej data/MANDEN_P4_R1_W_00001.csv") %>%
+  slice(2, 3, 6, 8, 9)
+MANDEN5 <- read.csv("imagej data/MANDEN_P5_R1_W_00001.csv") %>%
+  slice(2, 3, 5, 6, 7)
+MANDEN6 <- read.csv("imagej data/MANDEN_P6_R1_W_00001.csv") %>%
+  slice(1, 3, 4, 5, 6)
+
+SALAPI10 <- read.csv("imagej data/SALAPI_P10_R1_W_00001.csv") %>%
+  slice(2, 4, 5, 6, 7)
+SALAPI1 <- read.csv("imagej data/SALAPI_P1_R1_W_00002.csv") %>%
+  slice(3, 5, 6, 7, 8)
+SALAPI2 <- read.csv("imagej data/SALAPI_P2_R1_W_00002.csv") %>%
+  slice(4, 5, 6, 7, 8)
+SALAPI3 <- read.csv("imagej data/SALAPI_P3_R1_W_00001.csv") %>%
+  slice(3, 4, 5, 6, 7) 
+SALAPI4 <- read.csv("imagej data/SALAPI_P4_R1_W_00002.csv") %>%
+  slice(5, 7, 8, 9, 11)
+SALAPI5 <- read.csv("imagej data/SALAPI_P5_R1_W_00001.csv") %>%
+  slice(1, 3, 4, 5, 6)
+SALAPI6 <- read.csv("imagej data/SALAPI_P6_R1_W_00001.csv") %>%
+  slice(1, 3, 4, 5, 6)
+SALAPI7 <- read.csv("imagej data/SALAPI_P7_R1_W_00002.csv") %>%
+  slice(4, 5, 7, 8, 9)
+SALAPI8 <- read.csv("imagej data/SALAPI_P8_R1_W_00001.csv") %>%
+  slice(2, 4, 8, 9, 10)
+SALAPI9 <- read.csv("imagej data/SALAPI_P9_R1_W_00001.csv") %>%
+  slice(2, 4, 5, 6, 7)
+
+SALLEU1 <- read.csv("imagej data/SALLEU_P1_R1_W_00001.csv") %>%
+  slice(3, 5, 6, 7, 8)
+SALLEU2<- read.csv("imagej data/SALLEU_P2_R1_W_00001.csv") %>%
+  slice(2, 4, 5, 6, 7)
+SALLEU3 <- read.csv("imagej data/SALLEU_P3_R1_W_00001.csv") %>%
+  slice(1, 3, 4, 5, 6)
+SALLEU4 <- read.csv("imagej data/SALLEU_P4_R1_W_00001.csv") %>%
+  slice(1, 3, 5, 6, 7)
+SALLEU5 <- read.csv("imagej data/SALLEU_P5_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 6)
+SALLEU6 <- read.csv("imagej data/SALLEU_P6_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 7)
+SALLEU7 <- read.csv("imagej data/SALLEU_P7_R1_W_00001.csv") %>%
+  slice(1, 2, 4, 5, 7)
+
+```
 
