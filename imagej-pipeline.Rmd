@@ -20,35 +20,12 @@ library(lubridate)
 library(tibble)
 ```
 
-## single image analysis with ImageJ
-```{r}
-# open image file in imagej
-  # file --> open...
-# crop image if it includes shadows, edges, background material etc.
-  #  drag to desired shape & image --> crop
-# make image grayscale
-  # image --> type --> 8 bit
-# get red leaf images
-  # image --> adjust --> threshold
-  # uncheck "dark background"
-  # click apply = black and white image
-# (optional) process --> noise --> despeckle
-# analyze --> set measurements
-  # check area, std. deviation, display label
-  # change decimal to 1
-  # redirect to chosen file (optional)
-# analyze --> analyze particles
-  # set size to 10000-infinity
-  # check display results & include holes
-# save results spreadsheet
-
-# subsequent files
-# file --> open next (only works if your scans are already ordered in a folder)
-```
-
 ## compiling imagej leaf area analysis data
 ```{r}
 # read in individual data sets + clean
+# FORMAT:
+# species code & sample # <- read.csv("location/file name") %>% slice (rows that contain the area data corresponding to the leaves)
+
 ARTCAL1 <- read.csv("imagej data/ARTCAL_P1_R1_W_00001.csv") %>%
   slice(13, 16, 36, 39, 47)
 ARTCAL2 <- read.csv("imagej data/ARTCAL_P2_R1_W_00003.csv") %>%
@@ -181,8 +158,11 @@ SALLEU6 <- read.csv("imagej data/SALLEU_P6_R1_W_00001.csv") %>%
 SALLEU7 <- read.csv("imagej data/SALLEU_P7_R1_W_00001.csv") %>%
   slice(1, 2, 4, 5, 7)
 
-# create master data frame
+# create master data frame 
 leaf_area <- rbind(ARTCAL1, ARTCAL2, ARTCAL3, ARTCAL4, ARTCAL5, ARTCAL6, ARTCAL7, ARTCAL8, ARTCAL9, CEAGRI1, CEAGRI2, CEAGRI3, CEAGRI4, ERIKAR1, ERIKAR2, ERIKAR3, ERIKAR4, ERIKAR5, ERIKAR6, HETARB1, HETARB2, HETARB3, HETARB4, HETARB5, HETARB6, HETARB7, HETARB8, IRIDOU1, IRIDOU1.1, IRIDOU3, MALLAU1, MALLAU2, MALLAU3, MALLAU4, MALLAU5, MALLAU6, MALLAU7, MALLAU8, MALLAU9, MANDEN1, MANDEN2, MANDEN3, MANDEN4, MANDEN5, MANDEN6, SALAPI1, SALAPI2, SALAPI3, SALAPI4, SALAPI5, SALAPI6, SALAPI7, SALAPI8, SALAPI9, SALAPI10, SALLEU1, SALLEU2, SALLEU3, SALLEU4, SALLEU5, SALLEU6, SALLEU7)
+
+# generate a csv file for leaf area data
+write.csv(leaf_area, "leaf_area_flamm.csv")
 
 ```
 
