@@ -24,142 +24,56 @@ library(tibble)
 ```{r}
 # read in individual data sets + clean
 # FORMAT:
-# species code & sample # <- read.csv("location/file name") %>% slice (rows that contain the area data corresponding to the leaves)
+# species code <- read.csv("location/file name") %>% slice (rows that contain the area data corresponding to the leaves)
 
-ARTCAL1 <- read.csv("imagej data/ARTCAL_P1_R1_W_00001.csv") %>%
-  slice(13, 16, 36, 39, 47)
-ARTCAL2 <- read.csv("imagej data/ARTCAL_P2_R1_W_00003.csv") %>%
-  slice(5, 6, 12, 20, 32)
-ARTCAL3 <- read.csv("imagej data/ARTCAL_P3_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 7, 8)
-ARTCAL4 <- read.csv("imagej data/ARTCAL_P4_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 6)
-ARTCAL5 <- read.csv("imagej data/ARTCAL_P5_R1_W_00001.csv") %>%
-  slice(1, 3, 5, 6, 7)
-ARTCAL6 <- read.csv("imagej data/ARTCAL_P6_R1_W_00001.csv") %>%
-  slice(2, 3, 5, 7, 8)
-ARTCAL7 <- read.csv("imagej data/ARTCAL_P7_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 6, 10)
-ARTCAL8 <- read.csv("imagej data/ARTCAL_P8_R1_W_00001.csv") %>%
-  slice(1, 2, 3, 5, 6)
-ARTCAL9 <- read.csv("imagej data/ARTCAL_P9_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 6)
+ARTCAL <- read.csv("imagej data/ARTCAL.csv") %>%
+  slice(1, 2, 4, 5, 6, 8, 9, 11, 12, 14, 15, 16, 18, 19, 25, 27, 28, 31, 32, 33, 34, 36, 38, 39, 40, 42, 43, 45, 46, 47, 49, 50, 52, 53, 54, 60, 61, 62, 64, 65, 66, 67, 69, 70, 71) %>%
+  mutate(leaf_number = rep(1:5, 9)) %>% # add column for leaf number (1-5)
+  mutate(plant_number = rep(1:9, each = 5)) # add column for plant number
 
-CEAGRI1 <- read.csv("imagej data/CEAGRI_P1_R1_W_00001.csv") %>%
-  slice(6, 7, 13, 15, 35)
-CEAGRI2 <- read.csv("imagej data/CEAGRI_P2_R1_W_00003.csv") %>%
-  slice(1, 2, 5, 7, 8)
-CEAGRI3 <- read.csv("imagej data/CEAGRI_P3_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 7)
-CEAGRI4 <- read.csv("imagej data/CEAGRI_P4_R1_W_00001.csv") %>%
-  slice(2, 3, 5, 6, 8)
+CEAGRI <- read.csv("imagej data/CEAGRI.csv") %>%
+  slice(2, 1, 6, 7, 13, 16, 15, 19, 18, 20, 21, 22, 24, 25, 26, 27, 28, 30, 31, 32) %>%
+  mutate(leaf_number = rep(1:5, 4)) %>%
+  mutate(plant_number = rep(1:4, each = 5))
 
-ERIKAR1 <- read.csv("imagej data/ERIKAR_P1_R1_W_00001.csv") %>%
-  slice(2, 3, 5, 7, 8)
-ERIKAR2 <- read.csv("imagej data/ERIKAR_P2_R1_W_00001.csv") %>%
-  slice(2, 3, 5, 6, 7)
-ERIKAR3 <- read.csv("imagej data/ERIKAR_P3_R1_W_00001.csv") %>%
-  slice(1, 2, 5, 6, 7)
-ERIKAR4 <- read.csv("imagej data/ERIKAR_P4_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 8, 11)
-ERIKAR5 <- read.csv("imagej data/ERIKAR_P5_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 8, 9)
-ERIKAR6 <- read.csv("imagej data/ERIKAR_P6_R1_W_00001.csv") %>%
-  slice(3, 5, 7, 9, 10)
+ERIKAR <- read.csv("imagej data/ERIKAR.csv") %>%
+  slice(1, 2, 4, 5, 6, 9, 8, 11, 12, 13, 15, 14, 17, 18, 19, 20, 21, 23, 24, 26, 27, 28, 30, 31, 32, 34, 36, 37, 38, 39) %>%
+  mutate(leaf_number = rep(1:5, 6)) %>%
+  mutate(plant_number = rep(1:6, each = 5))
 
-HETARB1 <- read.csv("imagej data/HETARB_P1_R1_W_00001.csv") %>%
-  slice(3, 6, 18, 26, 40)
-HETARB2 <- read.csv("imagej data/HETARB_P2_R1_W_0003.csv") %>% # note: leaf 2 was connected to ruler; inaccurate measurement
-  slice(1, 2, 12, 23, 30)
-HETARB3 <- read.csv("imagej data/HETARB_P3_R1_W_00001.csv") %>%
-  slice(2, 4, 17, 23, 33)
-HETARB4 <- read.csv("imagej data/HETARB_P4_R1_W_00002.csv") %>%
-  slice(2, 5, 17, 24, 32)
-HETARB5 <- read.csv("imagej data/HETARB_P5_R1_W_00001.csv") %>%
-  slice(6, 9, 16, 30, 35)
-HETARB6 <- read.csv("imagej data/HETARB_P6_R1_W_00001.csv") %>%
-  slice(5, 11, 21, 29, 38)
-HETARB7 <- read.csv("imagej data/HETARB_P7_R1_W_00001.csv") %>%
-  slice(2, 3, 8, 18, 34)
-HETARB8 <- read.csv("imagej data/HETARB_P8_R1_W_00001.csv") %>%
-  slice(3, 6, 9, 10, 11)
+HETARB <- read.csv("imagej data/HETARB.csv") %>%
+  slice(3, 6, 18, 26, 40, 42, 43, 53, 62, 71, 73, 74, 90, 96, 107, 108, 111, 123, 130, 138, 140, 143, 150, 162, 167, 171, 174, 180, 187, 196, 198, 199, 204, 214, 229, 234, 236, 237, 238, 239) %>%
+  mutate(leaf_number = rep(1:5, 8)) %>%
+  mutate(plant_number = rep(1:8, each = 5))
 
-IRIDOU1 <- read.csv("imagej data/IRIDOU_P1_R1_W_00001.csv") %>%
-  slice(6, 7, 8, 12)
-IRIDOU1.1 <- read.csv("imagej data/IRIDOU_P1_R1_W_00001(2).csv") 
-IRIDOU3 <- read.csv("imagej data/IRIDOU_P3_R1_W_00001.csv") %>%
-  slice(3, 4, 5, 6, 10)
+IRIDOU <- read.csv("imagej data/IRIDOU.csv") %>%
+  slice(2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18) %>%
+  mutate(leaf_number = rep(1:5, 3)) %>%
+  mutate(plant_number = rep(1:3, each = 5))
 
-MALLAU1 <- read.csv("imagej data/MALLAU_P1_R1_W_00001.csv") %>%
-  slice(2, 5, 8, 9, 10)
-MALLAU2 <- read.csv("imagej data/MALLAU_P2_R1_W_00002.csv") %>%
-  slice(1, 2, 6, 8, 9)
-MALLAU3 <- read.csv("imagej data/MALLAU_P3_R1_W_00002.csv") %>%
-  slice(1, 3, 4, 5, 6)
-MALLAU4 <- read.csv("imagej data/MALLAU_P4_R1_W_00001.csv") %>%
-  slice(3, 4, 9, 10, 11)
-MALLAU5 <- read.csv("imagej data/MALLAU_P5_R1_W_00001.csv") %>%
-  slice(2, 4, 5, 6, 7)
-MALLAU6 <- read.csv("imagej data/MALLAU_P6_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 7)
-MALLAU7 <- read.csv("imagej data/MALLAU_P7_R1_W_00001.csv") %>% # note: missing measurement for leaf 4 (connected to the ruler)
-  slice(2, 3, 5, 6)
-MALLAU8 <- read.csv("imagej data/MALLAU_P8_R1_W_00001.csv") %>% # note: leaf 3 connected to ruler; measurement inaccurate
-  slice(1, 2, 3, 5, 8)
-MALLAU9 <- read.csv("imagej data/MALLAU_P9_R1_W_00004.csv") %>%
-  slice(1, 2, 4, 5, 6)
+plant <- c(10, 1:9) # make a vector for plant number for spp. with 10 plants
+MALLAU <- read.csv("imagej data/MALLAU.csv") %>%
+  slice(1, 2, 4, 6, 7, 9, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 23, 24, 25, 26, 35, 36, 38, 39, 40, 42, 44, 45, 46, 47, 48, 49, 51, 52, 53, 55, 56, 58, 57, 59, 60, 61, 63, 62, 64, 65, 66, 68, 69, 70) %>%
+  mutate(leaf_number = rep(1:5, 10)) %>%
+  mutate(plant_number = rep(plant, each = 5))
 
-MANDEN1 <- read.csv("imagej data/MANDEN_P1_R1_W_00001.csv") %>%
-  slice(2, 4, 5, 6, 7)
-MANDEN2 <- read.csv("imagej data/MANDEN_P2_R1_W_00001.csv") %>%
-  slice(3, 4, 5, 6, 7)
-MANDEN3 <- read.csv("imagej data/MANDEN_P3_R1_W_00001.csv") %>%
-  slice(3, 4, 7, 8, 9)
-MANDEN4 <- read.csv("imagej data/MANDEN_P4_R1_W_00001.csv") %>%
-  slice(2, 3, 6, 8, 9)
-MANDEN5 <- read.csv("imagej data/MANDEN_P5_R1_W_00001.csv") %>%
-  slice(2, 3, 5, 6, 7)
-MANDEN6 <- read.csv("imagej data/MANDEN_P6_R1_W_00001.csv") %>%
-  slice(1, 3, 4, 5, 6)
+MANDEN <- read.csv("imagej data/MANDEN.csv") %>%
+  slice(1, 3, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 24, 25, 26, 28, 29, 31, 32, 33, 34, 36, 37, 38, 39) %>%
+  mutate(leaf_number = rep(1:5, 6)) %>%
+  mutate(plant_number = rep(1:6, each = 5))
 
-SALAPI10 <- read.csv("imagej data/SALAPI_P10_R1_W_00001.csv") %>%
-  slice(2, 4, 5, 6, 7)
-SALAPI1 <- read.csv("imagej data/SALAPI_P1_R1_W_00002.csv") %>%
-  slice(3, 5, 6, 7, 8)
-SALAPI2 <- read.csv("imagej data/SALAPI_P2_R1_W_00002.csv") %>%
-  slice(4, 5, 6, 7, 8)
-SALAPI3 <- read.csv("imagej data/SALAPI_P3_R1_W_00001.csv") %>%
-  slice(3, 4, 5, 6, 7) 
-SALAPI4 <- read.csv("imagej data/SALAPI_P4_R1_W_00002.csv") %>%
-  slice(5, 7, 8, 9, 11)
-SALAPI5 <- read.csv("imagej data/SALAPI_P5_R1_W_00001.csv") %>%
-  slice(1, 3, 4, 5, 6)
-SALAPI6 <- read.csv("imagej data/SALAPI_P6_R1_W_00001.csv") %>%
-  slice(1, 3, 4, 5, 6)
-SALAPI7 <- read.csv("imagej data/SALAPI_P7_R1_W_00002.csv") %>%
-  slice(4, 5, 7, 8, 9)
-SALAPI8 <- read.csv("imagej data/SALAPI_P8_R1_W_00001.csv") %>%
-  slice(2, 4, 8, 9, 10)
-SALAPI9 <- read.csv("imagej data/SALAPI_P9_R1_W_00001.csv") %>%
-  slice(2, 4, 5, 6, 7)
+SALAPI <- read.csv("imagej data/SALAPI.csv") %>%
+  slice(1, 3, 4, 5, 6, 8, 10, 11, 12, 13, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26, 28, 30, 31, 32, 33, 36, 38, 39, 40, 41, 43, 45, 46, 47, 48, 49, 50, 52, 53, 54, 55, 57, 58, 59, 60, 62, 64, 65, 66, 67) %>%
+  mutate(leaf_number = rep(1:5, 10)) %>%
+  mutate(plant_number = rep(plant, each = 5))
 
-SALLEU1 <- read.csv("imagej data/SALLEU_P1_R1_W_00001.csv") %>%
-  slice(3, 5, 6, 7, 8)
-SALLEU2<- read.csv("imagej data/SALLEU_P2_R1_W_00001.csv") %>%
-  slice(2, 4, 5, 6, 7)
-SALLEU3 <- read.csv("imagej data/SALLEU_P3_R1_W_00001.csv") %>%
-  slice(1, 3, 4, 5, 6)
-SALLEU4 <- read.csv("imagej data/SALLEU_P4_R1_W_00001.csv") %>%
-  slice(1, 3, 5, 6, 7)
-SALLEU5 <- read.csv("imagej data/SALLEU_P5_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 6)
-SALLEU6 <- read.csv("imagej data/SALLEU_P6_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 7)
-SALLEU7 <- read.csv("imagej data/SALLEU_P7_R1_W_00001.csv") %>%
-  slice(1, 2, 4, 5, 7)
+SALLEU <- read.csv("imagej data/SALLEU.csv") %>%
+  slice(2, 3, 4, 5, 6, 8, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 29, 30, 31, 32, 33, 35, 36, 37, 38, 39, 41, 42, 43) %>%
+  mutate(leaf_number = rep(1:5, 7)) %>%
+  mutate(plant_number = rep(1:7, each = 5))
 
 # create master data frame 
-leaf_area <- rbind(ARTCAL1, ARTCAL2, ARTCAL3, ARTCAL4, ARTCAL5, ARTCAL6, ARTCAL7, ARTCAL8, ARTCAL9, CEAGRI1, CEAGRI2, CEAGRI3, CEAGRI4, ERIKAR1, ERIKAR2, ERIKAR3, ERIKAR4, ERIKAR5, ERIKAR6, HETARB1, HETARB2, HETARB3, HETARB4, HETARB5, HETARB6, HETARB7, HETARB8, IRIDOU1, IRIDOU1.1, IRIDOU3, MALLAU1, MALLAU2, MALLAU3, MALLAU4, MALLAU5, MALLAU6, MALLAU7, MALLAU8, MALLAU9, MANDEN1, MANDEN2, MANDEN3, MANDEN4, MANDEN5, MANDEN6, SALAPI1, SALAPI2, SALAPI3, SALAPI4, SALAPI5, SALAPI6, SALAPI7, SALAPI8, SALAPI9, SALAPI10, SALLEU1, SALLEU2, SALLEU3, SALLEU4, SALLEU5, SALLEU6, SALLEU7) %>%
+leaf_area <- rbind(ARTCAL, CEAGRI, ERIKAR, HETARB, IRIDOU, MALLAU, MANDEN, SALAPI, SALLEU) %>%
   mutate(species = case_when( # add column for species
     startsWith(Label, "ARTCAL") ~ "ARTCAL",
     startsWith(Label, "CEAGRI") ~ "CEAGRI",
@@ -170,10 +84,12 @@ leaf_area <- rbind(ARTCAL1, ARTCAL2, ARTCAL3, ARTCAL4, ARTCAL5, ARTCAL6, ARTCAL7
     startsWith(Label, "MANDEN") ~ "MANDEN",
     startsWith(Label, "SALAPI") ~ "SALAPI",
     startsWith(Label, "SALLEU") ~ "SALLEU"
-  ))
+  )) %>%
+  clean_names() %>%
+  select(label, species, plant_number, leaf_number, area, std_dev, x, y, xm, ym, perim, bx, by, width, height, major, minor, angle, circ, feret, feret_x, feret_y, feret_angle, min_feret, ar, round, solidity, x_1)
 
 # generate a csv file for leaf area data
-write.csv(leaf_area, "leaf_area_flamm.csv")
+write.csv(leaf_area, "imagej data/leaf_area_flamm.csv")
 ```
 
 ## data visualization
