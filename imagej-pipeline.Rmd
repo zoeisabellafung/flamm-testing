@@ -86,7 +86,9 @@ leaf_area <- rbind(ARTCAL, CEAGRI, ERIKAR, HETARB, IRIDOU, MALLAU, MANDEN, SALAP
     startsWith(Label, "SALLEU") ~ "SALLEU"
   )) %>%
   clean_names() %>%
-  select(label, species, plant_number, leaf_number, area, std_dev, x, y, xm, ym, perim, bx, by, width, height, major, minor, angle, circ, feret, feret_x, feret_y, feret_angle, min_feret, ar, round, solidity, x_1)
+  select(label, species, plant_number, leaf_number, area, std_dev, x, y, xm, ym, perim, bx, by, width, height, major, minor, angle, circ, feret, feret_x, feret_y, feret_angle, min_feret, ar, round, solidity, x_1) %>%
+  rename(area_cm2 = area) %>%
+  rename(std_dev_cm2 = std_dev)
 
 # generate a csv file for leaf area data
 write.csv(leaf_area, "imagej data/leaf_area_flamm.csv")
